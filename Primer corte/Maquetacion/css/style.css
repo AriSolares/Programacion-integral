@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root{
+    --color1: #F2DAAC;
+    --color2: #F2EDE4;
+    --color3: #403D39;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: var(--color2);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--color1);
+    color: var(--color3);
+  }
+  
+  .nav a {
+    margin: 0 15px;
+    color: var(--color3);
+    text-decoration: none;
+  }
+  
+  .hero {
+    display: flex;
+    padding: 40px;
+  }
+  
+  .hero-text {
+    flex: 1;
+  }
+  
+  .hero-text h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .hero-text p {
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .hero-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .image-placeholder {
+    width: 50vw;
+    height: auto;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  
+  .events {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+  }
+  
+  .event {
+    text-align: center;
+  }
+  
+  .booking {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+  }
+  
+  .book-item {
+    text-align: center;
+  }
+  
+  .why-choose-us {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .reasons {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+  }
+  
+  .reason {
+    text-align: center;
+    max-width: 150px;
+  }
+  
+  .icon-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: #e0e0e0;
+    margin: 0 auto 10px;
+  }
+  
+  .services {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    background-color: #f1f1f1;
+  }
+  
+  .services-text {
+    max-width: 500px;
+  }
+  
+  .services-list p {
+    margin-bottom: 10px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #0073e6;
+    color: white;
+  }
+  
