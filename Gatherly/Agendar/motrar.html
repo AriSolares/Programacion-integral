@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Citas Agendadas</title>
+  <link rel="stylesheet" href="mostrar.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Gatherly</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="galeria.html">Galería</a></li>
+            <li class="nav-item"><a class="nav-link" href="nostros.html">Sobre nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="Agendar/agenda.html">Agenda tu visita</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+  <div class="table-container">
+    <h2>Lista de Citas Agendadas</h2>
+    <button onclick="window.location.href='agenda.html';">Agendar Nueva Cita</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Tipo de Evento</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="citas-body">
+        <!-- Los datos se insertarán aquí mediante JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Solicitud al archivo obtener_citas.php para obtener los datos en JSON
+    fetch('mostrar.php')
+      .then(response => response.json())
+      .then(data => {
+        const citasBody = document.getElementById('citas-body');
+        // Iterar sobre cada cita y crear una fila en la tabla
+        data.forEach(cita => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${cita.nombre}</td>
+            <td>${cita.apellido}</td>
+            <td>${cita.tipo_evento}</td>
+            <td>${cita.fecha}</td>
+            <td>${cita.hora}</td>
+            <td>
+              <button onclick="editarCita('${cita.id}')">Editar</button>
+              <button onclick="eliminarCita('${cita.id}')">Eliminar</button>
+            </td>
+          `;
+          citasBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error al obtener los datos:', error));
+
+    // Función para eliminar una cita
+    function eliminarCita(id) {
+      fetch(`eliminar.php?id=${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Cita eliminada con éxito");
+            location.reload(); // Recargar la página para ver los cambios
+          } else {
+            alert("Error al eliminar la cita");
+          }
+        })
+        .catch(error => console.error('Error al eliminar la cita:', error));
+    }
+
+    // Función para editar una cita (redirige a una página de edición)
+    function editarCita(id) {
+      window.location.href = `editar.html?id=${id}`;
+    }
+  </script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

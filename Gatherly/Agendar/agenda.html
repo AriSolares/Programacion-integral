@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar Cita</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="agenda.css">
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-800ZES3X8J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-800ZES3X8J');
+</script>
+
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="../index.html">Gatherly</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="../galeria.html">Galería</a></li>
+            <li class="nav-item"><a class="nav-link" href="../nostros.html">Sobre nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="agenda.html">Agenda tu visita</a></li>
+            <li class="nav-item"><a class="nav-link" href="../login.html">Iniciar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+  <div class="appointment-container">
+    <h2>Agendar Cita</h2>
+    
+    <!-- Formulario para enviar datos a citas.php -->
+    <form id="appointmentForm">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" name="apellido" required>
+
+      <label for="tipo_evento">Tipo de Evento:</label>
+      <input type="text" id="tipo_evento" name="tipo_evento" required>
+
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" name="fecha" required>
+
+      <label for="hora">Hora:</label>
+      <input type="time" id="hora" name="hora" required>
+
+      <button type="submit">Agendar</button>
+    </form>
+
+    <!-- Botón para ir a la página de citas -->
+    <!-- <button onclick="window.location.href='motrar.html'" style="margin-top: 20px;">Ver Citas Agendadas</button> -->
+
+    <!-- Popup de confirmación -->
+    <div id="popupMessage" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #f0f0f0; padding: 20px; border: 2px solid #333; border-radius: 8px;">
+      <p id="popupText"></p>
+      <button onclick="closePopup()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evitar el envío normal del formulario
+
+      // Recoger los datos del formulario
+      const formData = new FormData(this);
+
+      // Enviar los datos mediante AJAX
+      fetch('citas.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        showPopup(data); // Mostrar el mensaje en un popup
+      })
+      .catch(error => {
+        showPopup('Ocurrió un error al procesar la solicitud.');
+        console.error('Error:', error);
+      });
+    });
+
+    // Función para mostrar el popup
+    function showPopup(message) {
+      document.getElementById('popupText').textContent = message;
+      document.getElementById('popupMessage').style.display = 'block';
+    }
+
+    // Función para cerrar el popup
+    function closePopup() {
+      document.getElementById('popupMessage').style.display = 'none';
+    }
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

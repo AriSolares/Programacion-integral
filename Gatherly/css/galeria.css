@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.navbar, footer {
+    background-color: #b38758;
+}
+footer {
+    padding: 20px 0;
+    color: #fff;
+}
+.gallery {
+    padding: 40px 0;
+}

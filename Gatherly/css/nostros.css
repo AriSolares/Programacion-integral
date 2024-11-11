@@ -1,0 +1,22 @@
+
+body {
+    font-family: Arial, sans-serif;
+}
+.navbar, footer {
+    background-color: #b38758;
+}
+.about-section, .contact-section {
+    padding: 60px 0;
+    color: #333;
+}
+.about-section h2, .contact-section h2 {
+    color: #b38758;
+    font-weight: bold;
+}
+.map-container {
+    height: 400px;
+}
+footer {
+    padding: 20px;
+    color: #fff;
+}

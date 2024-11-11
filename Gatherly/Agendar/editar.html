@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Cita</title>
+  <link rel="stylesheet" href="editar.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Gatherly</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="galeria.html">Galería</a></li>
+            <li class="nav-item"><a class="nav-link" href="nostros.html">Sobre nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="Agendar/agenda.html">Agenda tu visita</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+  <div class="form-container">
+    <h2>Editar Cita</h2>
+    <form id="editar-form">
+      <input type="hidden" id="cita-id">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" required>
+      
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" required>
+      
+      <label for="tipo_evento">Tipo de Evento:</label>
+      <input type="text" id="tipo_evento" required>
+      
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" required>
+      
+      <label for="hora">Hora:</label>
+      <input type="time" id="hora" required>
+      
+      <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
+    </form>
+  </div>
+
+  <script>
+    // Obtener el ID de la cita desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const citaId = params.get('id');
+    document.getElementById('cita-id').value = citaId;
+
+    // Cargar los datos de la cita
+    fetch(`obtener.php?id=${citaId}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('nombre').value = data.nombre;
+        document.getElementById('apellido').value = data.apellido;
+        document.getElementById('tipo_evento').value = data.tipo_evento;
+        document.getElementById('fecha').value = data.fecha;
+        document.getElementById('hora').value = data.hora;
+      })
+      .catch(error => console.error('Error al cargar los datos:', error));
+
+    // Guardar los cambios
+    function guardarCambios() {
+      const nombre = document.getElementById('nombre').value;
+      const apellido = document.getElementById('apellido').value;
+      const tipo_evento = document.getElementById('tipo_evento').value;
+      const fecha = document.getElementById('fecha').value;
+      const hora = document.getElementById('hora').value;
+
+      fetch('editar.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: citaId,
+          nombre: nombre,
+          apellido: apellido,
+          tipo_evento: tipo_evento,
+          fecha: fecha,
+          hora: hora
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Cita actualizada con éxito.");
+          window.location.href = 'motrar.html';
+        } else {
+          alert("Esta fecha y hora ya estan apartadas elija otra porfavor.");
+        }
+      })
+      .catch(error => console.error('Error al guardar los cambios:', error));
+    }
+  </script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

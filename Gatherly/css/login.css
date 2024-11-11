@@ -1,0 +1,48 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('ruta/a/tu/imagen-de-fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+.login-container {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+    margin: auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.login-container h2 {
+    color: #b38758;
+    font-weight: bold;
+}
+.admin-badge {
+    display: block;
+    text-align: center;
+    color: white;
+    background-color: #b38758;
+    padding: 5px;
+    border-radius: 5px 5px 0 0;
+    font-size: 14px;
+}
+footer {
+    background-color: #b38758;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
